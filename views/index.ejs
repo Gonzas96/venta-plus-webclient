@@ -1,0 +1,60 @@
+<%- include('partials/header', { titulo: 'Venta Plus - Listado de Productos' }) %>
+
+<% if (mensaje) { %>
+    <div class="alert alert-success"><%= mensaje %></div>
+<% } %>
+
+<% if (error) { %>
+    <div class="alert alert-error"><%= error %></div>
+<% } %>
+
+<div class="card">
+    <div class="actions">
+        <a class="btn btn-primary" href="/productos/nuevo">+ Nuevo Producto</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Categoria</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (!productos || productos.length === 0) { %>
+                <tr><td colspan="7">No hay productos registrados.</td></tr>
+            <% } %>
+
+            <% (productos || []).forEach(function(p) { %>
+                <tr>
+                    <td><%= p.idProducto %></td>
+                    <td><%= p.nombre %></td>
+                    <td><%= p.categoria %></td>
+                    <td>S/ <%= Number(p.precio).toFixed(2) %></td>
+                    <td><%= p.stock %></td>
+                    <td>
+                        <% if (p.activo) { %>
+                            <span class="badge-activo">Activo</span>
+                        <% } else { %>
+                            <span class="badge-inactivo">Inactivo</span>
+                        <% } %>
+                    </td>
+                    <td>
+                        <a class="btn btn-edit" href="/productos/<%= p.idProducto %>/editar">Editar</a>
+                        <form action="/productos/<%= p.idProducto %>?_method=DELETE" method="POST" style="display:inline"
+                              onsubmit="return confirm('¿Eliminar el producto \'<%= p.nombre %>\'?');">
+                            <button type="submit" class="btn btn-delete">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('partials/footer') %>

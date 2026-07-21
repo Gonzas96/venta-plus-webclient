@@ -1,0 +1,20 @@
+{
+  "name": "venta-plus-webclient",
+  "version": "1.0.0",
+  "description": "Cliente Web (Node.js + Express + EJS) que consume la API REST de Venta Plus",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "method-override": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
