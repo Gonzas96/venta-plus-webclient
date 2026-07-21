@@ -1,11 +1,17 @@
 const axios = require('axios');
+const https = require('https');
 
-const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:52301/api/productos';
+const API_BASE_URL = process.env.API_BASE_URL || 'https://localhost:44388/api/productos';
+
+// IIS Express usa un certificado SSL autofirmado en desarrollo local.
+// Node lo rechaza por defecto; esto le dice que confie en el, SOLO para desarrollo.
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const http = axios.create({
     baseURL: API_BASE_URL,
     timeout: 15000,
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 'Content-Type': 'application/json' },
+    httpsAgent
 });
 
 /**
